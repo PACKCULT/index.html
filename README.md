@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PACK CULT — BE YOUR STYLE</title>
+<title>PACK CULT</title>
 
 <style>
 *{
@@ -13,111 +13,195 @@
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
   min-height:100vh;
-  background:#050505;
-  color:#fff;
   font-family:Arial,Helvetica,sans-serif;
+  color:#111;
   overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at 20% 10%, #ffffff 0%, transparent 30%),
+    radial-gradient(circle at 80% 20%, #d9d9d9 0%, transparent 28%),
+    linear-gradient(135deg,#eeeeee,#bcbcbc,#f7f7f7);
 }
 
-/* Background */
+/* Moving light */
 
 body::before{
   content:"";
   position:fixed;
-  width:500px;
-  height:500px;
-  top:-250px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#333;
-  filter:blur(150px);
-  opacity:.25;
+  width:350px;
+  height:350px;
+
+  top:10%;
+  left:-150px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.75);
+  filter:blur(70px);
+
+  animation:lightMove 8s ease-in-out infinite alternate;
+
   pointer-events:none;
 }
 
-/* Main */
+@keyframes lightMove{
+  0%{
+    transform:translate(0,0);
+  }
+
+  100%{
+    transform:translate(600px,250px);
+  }
+}
+
+/* Container */
 
 .container{
   width:100%;
   max-width:500px;
   margin:auto;
-  padding:55px 22px 35px;
+
+  padding:45px 20px 40px;
+
   text-align:center;
+
+  position:relative;
+  z-index:2;
+}
+
+/* Glass card */
+
+.card{
+  padding:35px 22px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,.55);
+
+  border:1px solid rgba(255,255,255,.8);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.18);
+
+  animation:cardIn 1s ease;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* Logo */
 
-.logo{
-  width:125px;
-  height:125px;
+.logo-wrap{
+  position:relative;
+
+  width:135px;
+  height:135px;
+
   margin:0 auto 25px;
 
-  border:2px solid #fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* spinning ring */
+
+.logo-wrap::before{
+  content:"";
+
+  position:absolute;
+
+  width:135px;
+  height:135px;
+
   border-radius:50%;
+
+  border:2px solid transparent;
+
+  border-top-color:#111;
+  border-right-color:#777;
+
+  animation:spin 5s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.logo{
+  width:105px;
+  height:105px;
+
+  border-radius:50%;
+
+  background:#111;
+  color:#fff;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  background:#080808;
-
-  font-size:34px;
+  font-size:32px;
   font-weight:900;
+
   letter-spacing:-3px;
 
   box-shadow:
-    0 0 0 7px #111,
-    0 0 40px rgba(255,255,255,.12);
-
-  animation:logoIn 1s ease;
-}
-
-@keyframes logoIn{
-  from{
-    opacity:0;
-    transform:scale(.7) rotate(-10deg);
-  }
-  to{
-    opacity:1;
-    transform:scale(1) rotate(0);
-  }
+    0 12px 30px rgba(0,0,0,.3);
 }
 
 /* Brand */
 
 .brand{
-  font-size:38px;
-  font-weight:900;
-  letter-spacing:7px;
-  margin-bottom:12px;
+  font-size:40px;
+  font-weight:1000;
 
-  animation:fadeUp .8s ease;
+  letter-spacing:7px;
+
+  color:#111;
+
+  text-shadow:
+    0 3px 0 rgba(255,255,255,.6);
+
+  animation:brandIn 1s ease;
+}
+
+@keyframes brandIn{
+  from{
+    opacity:0;
+    letter-spacing:15px;
+  }
+
+  to{
+    opacity:1;
+    letter-spacing:7px;
+  }
 }
 
 .tagline{
-  color:#888;
+  margin-top:10px;
+  margin-bottom:32px;
+
   font-size:13px;
+
   letter-spacing:3px;
-  margin-bottom:38px;
 
-  animation:fadeUp 1s ease;
-}
-
-@keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(15px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  color:#555;
 }
 
 /* Buttons */
@@ -129,127 +213,163 @@ body::before{
   align-items:center;
   justify-content:center;
 
-  width:100%;
   height:65px;
 
-  margin:16px 0;
+  margin:15px 0;
 
-  color:#fff;
+  border-radius:18px;
+
   text-decoration:none;
 
-  border:1px solid #292929;
-  border-radius:18px;
+  color:#fff;
 
   background:
     linear-gradient(
       135deg,
-      #1d1d1d,
-      #090909
+      #171717,
+      #3b3b3b
     );
 
+  border:1px solid rgba(0,0,0,.3);
+
   font-size:15px;
-  font-weight:800;
+  font-weight:bold;
+
   letter-spacing:2px;
 
   overflow:hidden;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,.5);
+    0 12px 25px rgba(0,0,0,.2);
 
   transition:
-    transform .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease;
+    transform .25s,
+    box-shadow .25s;
 }
+
+/* shine */
 
 .button::before{
   content:"";
+
   position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.12),
-      transparent
-    );
+  width:80px;
+  height:200%;
 
-  transition:left .5s ease;
+  top:-50%;
+  left:-120px;
+
+  background:rgba(255,255,255,.25);
+
+  transform:rotate(20deg);
+
+  transition:.6s;
 }
 
 .button:hover::before{
-  left:100%;
+  left:120%;
 }
 
 .button:hover{
-  transform:translateY(-4px);
-  border-color:#666;
+  transform:translateY(-5px) scale(1.01);
 
   box-shadow:
-    0 15px 40px rgba(0,0,0,.8);
+    0 18px 35px rgba(0,0,0,.3);
 }
 
 .button:active{
-  transform:scale(.97);
+  transform:scale(.96);
 }
 
 .arrow{
   position:absolute;
-  right:22px;
 
-  font-size:25px;
-  color:#777;
+  right:20px;
 
-  transition:
-    transform .25s ease,
-    color .25s ease;
+  font-size:24px;
+
+  transition:.3s;
 }
 
 .button:hover .arrow{
-  transform:translateX(5px);
-  color:#fff;
+  transform:translateX(6px);
 }
 
-/* Featured */
+/* Tag */
 
-.featured{
-  margin:38px 0 25px;
-  padding:20px;
+.tag{
+  display:inline-block;
 
-  border:1px solid #222;
+  margin:5px 0 25px;
+
+  padding:7px 14px;
+
+  border-radius:50px;
+
+  background:#111;
+
+  color:#fff;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{
+    box-shadow:0 0 0 rgba(0,0,0,0);
+  }
+
+  50%{
+    box-shadow:0 0 20px rgba(0,0,0,.25);
+  }
+}
+
+/* Quote */
+
+.quote{
+  margin-top:30px;
+
+  padding:18px;
+
   border-radius:18px;
 
-  background:#0b0b0b;
-}
+  background:rgba(255,255,255,.45);
 
-.featured-title{
-  font-size:11px;
-  color:#666;
-  letter-spacing:3px;
-  margin-bottom:8px;
-}
+  border:1px solid rgba(255,255,255,.7);
 
-.featured-text{
-  font-size:18px;
-  font-weight:800;
+  font-size:14px;
+
+  font-weight:bold;
+
   letter-spacing:1px;
+}
+
+.quote span{
+  display:block;
+
+  margin-top:7px;
+
+  font-size:11px;
+
+  color:#777;
+
+  font-weight:normal;
 }
 
 /* Footer */
 
 .footer{
-  margin-top:45px;
-  padding-top:20px;
+  margin-top:30px;
 
-  border-top:1px solid #1b1b1b;
-
-  color:#444;
   font-size:10px;
+
   letter-spacing:3px;
+
+  color:#777;
 }
 
 /* Mobile */
@@ -257,7 +377,12 @@ body::before{
 @media(max-width:480px){
 
   .container{
-    padding-top:40px;
+    padding-top:25px;
+  }
+
+  .card{
+    padding:30px 18px;
+    border-radius:25px;
   }
 
   .brand{
@@ -265,25 +390,28 @@ body::before{
     letter-spacing:5px;
   }
 
-  .logo{
-    width:110px;
-    height:110px;
-    font-size:30px;
-  }
-
   .button{
     height:62px;
   }
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-  <div class="logo">
-    PC
+<div class="card">
+
+  <div class="logo-wrap">
+    <div class="logo">
+      PC
+    </div>
+  </div>
+
+  <div class="tag">
+    OFFICIAL
   </div>
 
   <div class="brand">
@@ -302,7 +430,7 @@ body::before{
     rel="noopener noreferrer"
   >
     FACEBOOK
-    <span class="arrow">›</span>
+    <span class="arrow">→</span>
   </a>
 
 
@@ -313,24 +441,20 @@ body::before{
     rel="noopener noreferrer"
   >
     INSTAGRAM
-    <span class="arrow">›</span>
+    <span class="arrow">→</span>
   </a>
 
 
-  <div class="featured">
-    <div class="featured-title">
-      PACK CULT
-    </div>
-
-    <div class="featured-text">
-      WEAR YOUR ATTITUDE.
-    </div>
+  <div class="quote">
+    WEAR YOUR ATTITUDE.
+    <span>PACK CULT</span>
   </div>
-
 
   <div class="footer">
     PACK CULT © 2026
   </div>
+
+</div>
 
 </div>
 
