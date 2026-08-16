@@ -4,13 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PACK CULT</title>
+<title>PACKCULT</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -20,12 +25,14 @@ body{
   overflow-x:hidden;
 
   background:
-    radial-gradient(circle at 15% 10%, #ffffff 0%, transparent 30%),
-    radial-gradient(circle at 85% 20%, #b9ecff 0%, transparent 28%),
-    linear-gradient(135deg,#f5f5f5,#d7d7d7,#ffffff);
+    radial-gradient(circle at 15% 10%, #ffffff 0%, transparent 28%),
+    radial-gradient(circle at 85% 15%, #bcecff 0%, transparent 30%),
+    linear-gradient(135deg,#f8f8f8,#d8d8d8,#ffffff);
 }
 
-/* BLUE LIGHT */
+/* =========================
+   MOVING BLUE LIGHT
+========================= */
 
 body::before{
   content:"";
@@ -39,206 +46,261 @@ body::before{
 
   border-radius:50%;
 
-  background:rgba(0,170,255,.35);
+  background:rgba(0,174,255,.32);
+
   filter:blur(90px);
 
-  animation:blueMove 9s ease-in-out infinite alternate;
+  animation:
+    lightMove 9s ease-in-out infinite alternate;
 
   pointer-events:none;
 }
-
-@keyframes blueMove{
-  0%{
-    transform:translate(0,0);
-  }
-
-  100%{
-    transform:translate(650px,400px);
-  }
-}
-
-/* SECOND LIGHT */
 
 body::after{
   content:"";
   position:fixed;
 
-  width:300px;
-  height:300px;
+  width:330px;
+  height:330px;
 
-  right:-120px;
-  bottom:-80px;
+  right:-150px;
+  bottom:-100px;
 
   border-radius:50%;
 
   background:rgba(0,110,255,.25);
+
   filter:blur(80px);
 
-  animation:blueMove2 7s ease-in-out infinite alternate;
+  animation:
+    lightMove2 8s ease-in-out infinite alternate;
 
   pointer-events:none;
 }
 
-@keyframes blueMove2{
+@keyframes lightMove{
+
   0%{
     transform:translate(0,0);
   }
 
   100%{
-    transform:translate(-250px,-200px);
+    transform:translate(620px,420px);
   }
+
 }
 
-/* MAIN */
+@keyframes lightMove2{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  100%{
+    transform:translate(-300px,-250px);
+  }
+
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
   width:100%;
   max-width:500px;
+
   margin:auto;
 
-  padding:40px 18px;
-
-  text-align:center;
+  padding:35px 18px 45px;
 
   position:relative;
   z-index:2;
 }
 
-/* CARD */
+/* =========================
+   MAIN CARD
+========================= */
 
 .card{
-  padding:32px 20px;
 
-  border-radius:30px;
+  padding:35px 20px;
 
-  background:rgba(255,255,255,.62);
+  border-radius:32px;
 
-  border:1px solid rgba(255,255,255,.9);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.78),
+      rgba(255,255,255,.48)
+    );
 
-  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.95);
+
+  backdrop-filter:blur(22px);
 
   box-shadow:
-    0 25px 70px rgba(0,0,0,.18),
-    0 0 45px rgba(0,160,255,.10);
 
-  animation:cardIn 1s ease;
+    0 30px 80px rgba(0,0,0,.18),
+
+    0 0 50px rgba(0,170,255,.12);
+
+  animation:
+    cardIn 1s ease;
+
 }
 
 @keyframes cardIn{
+
   from{
     opacity:0;
-    transform:translateY(35px);
+    transform:translateY(35px) scale(.97);
   }
 
   to{
     opacity:1;
-    transform:translateY(0);
+    transform:translateY(0) scale(1);
   }
+
 }
 
-/* LOGO */
+/* =========================
+   PACKCULT LOGO
+========================= */
 
-.logo-wrap{
+.logo-area{
+
   position:relative;
 
-  width:140px;
-  height:140px;
+  text-align:center;
 
-  margin:0 auto 18px;
+  margin:10px 0 32px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  overflow:hidden;
+
+  padding:10px 0 20px;
+
 }
 
-.logo-wrap::before{
+.logo-text{
+
+  position:relative;
+
+  display:inline-block;
+
+  font-size:45px;
+
+  font-weight:1000;
+
+  letter-spacing:6px;
+
+  line-height:1;
+
+  color:#111;
+
+  text-transform:uppercase;
+
+  text-shadow:
+
+    0 2px 0 #fff,
+
+    0 5px 15px rgba(0,0,0,.15);
+
+  animation:
+    logoAppear 1s ease;
+
+}
+
+.logo-text span{
+
+  color:#007cff;
+
+  text-shadow:
+
+    0 0 10px rgba(0,124,255,.35),
+
+    0 0 25px rgba(0,170,255,.18);
+
+}
+
+.logo-text::after{
+
   content:"";
 
   position:absolute;
 
-  width:140px;
-  height:140px;
+  left:-20px;
+  right:-20px;
 
-  border-radius:50%;
+  bottom:-12px;
 
-  border:3px solid transparent;
+  height:3px;
 
-  border-top-color:#00aaff;
-  border-right-color:#006eff;
+  border-radius:20px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      #00c8ff,
+      #006eff,
+      #00c8ff,
+      transparent
+    );
 
   box-shadow:
-    0 0 20px rgba(0,170,255,.45);
 
-  animation:spin 4s linear infinite;
+    0 0 12px #00aaff,
+
+    0 0 25px rgba(0,170,255,.5);
+
+  animation:
+    blueLine 2.5s ease-in-out infinite;
+
 }
 
-.logo-wrap::after{
-  content:"";
+@keyframes logoAppear{
 
-  position:absolute;
-
-  width:120px;
-  height:120px;
-
-  border-radius:50%;
-
-  border:1px solid rgba(0,170,255,.3);
-
-  animation:pulseRing 2s ease-in-out infinite;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
+  from{
+    opacity:0;
+    transform:scale(.75);
+    letter-spacing:15px;
   }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+    letter-spacing:6px;
+  }
+
 }
 
-@keyframes pulseRing{
+@keyframes blueLine{
+
   0%,100%{
-    transform:scale(.95);
+    transform:scaleX(.65);
     opacity:.5;
   }
 
   50%{
-    transform:scale(1.05);
+    transform:scaleX(1);
     opacity:1;
   }
+
 }
 
-.logo{
-  width:105px;
-  height:105px;
-
-  border-radius:50%;
-
-  background:#111;
-  color:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:32px;
-  font-weight:900;
-
-  letter-spacing:-3px;
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.3),
-    0 0 25px rgba(0,170,255,.25);
-
-  position:relative;
-  z-index:2;
-}
-
-/* OFFICIAL */
+/* =========================
+   OFFICIAL TAG
+========================= */
 
 .tag{
+
   display:inline-block;
 
   padding:7px 15px;
 
-  margin-bottom:12px;
+  margin-bottom:13px;
 
   border-radius:50px;
 
@@ -246,92 +308,123 @@ body::after{
 
   color:#fff;
 
-  font-size:10px;
+  font-size:9px;
+
+  font-weight:bold;
 
   letter-spacing:3px;
 
   box-shadow:
-    0 0 15px rgba(0,170,255,.25);
+
+    0 0 15px rgba(0,170,255,.3);
+
+  animation:
+    tagPulse 2.5s infinite;
+
 }
 
-/* BRAND */
+@keyframes tagPulse{
+
+  0%,100%{
+    box-shadow:
+      0 0 8px rgba(0,170,255,.15);
+  }
+
+  50%{
+    box-shadow:
+      0 0 25px rgba(0,170,255,.45);
+  }
+
+}
+
+/* =========================
+   BRAND TEXT
+========================= */
 
 .brand{
-  font-size:39px;
 
-  font-weight:1000;
+  font-size:18px;
 
-  letter-spacing:7px;
+  font-weight:900;
 
-  color:#111;
+  letter-spacing:4px;
 
-  animation:brandIn 1s ease;
-}
+  color:#333;
 
-@keyframes brandIn{
-  from{
-    opacity:0;
-    letter-spacing:15px;
-  }
-
-  to{
-    opacity:1;
-    letter-spacing:7px;
-  }
 }
 
 .tagline{
-  margin-top:9px;
-  margin-bottom:30px;
 
-  color:#555;
+  margin-top:8px;
 
-  font-size:13px;
+  margin-bottom:32px;
+
+  color:#777;
+
+  font-size:12px;
 
   letter-spacing:3px;
+
 }
 
-/* SOCIAL CARDS */
+/* =========================
+   SOCIAL BUTTON
+========================= */
 
 .social{
+
   position:relative;
 
   display:flex;
+
   align-items:center;
 
   width:100%;
 
-  min-height:78px;
+  min-height:82px;
 
   margin:18px 0;
 
   padding:12px 18px;
 
-  border-radius:20px;
+  border-radius:22px;
 
-  text-decoration:none;
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.9),
+      rgba(245,245,245,.65)
+    );
+
+  border:2px solid rgba(0,160,255,.28);
 
   color:#111;
 
-  background:rgba(255,255,255,.8);
-
-  border:2px solid rgba(0,170,255,.35);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.12),
-    0 0 20px rgba(0,170,255,.08);
+  text-decoration:none;
 
   overflow:hidden;
 
+  box-shadow:
+
+    0 12px 30px rgba(0,0,0,.12),
+
+    0 0 20px rgba(0,170,255,.08);
+
   transition:
+
     transform .3s ease,
+
     border-color .3s ease,
+
     box-shadow .3s ease;
+
 }
 
-/* BLUE LINE */
+/* BLUE EDGE */
 
 .social::before{
+
   content:"";
 
   position:absolute;
@@ -342,205 +435,326 @@ body::after{
   width:5px;
   height:100%;
 
-  background:linear-gradient(
-    #00c8ff,
-    #006eff
-  );
+  background:
+
+    linear-gradient(
+      #00c8ff,
+      #006eff
+    );
 
   box-shadow:
+
     0 0 18px #00aaff;
+
 }
 
-/* SHINE */
+/* LIGHT SWEEP */
 
 .social::after{
+
   content:"";
 
   position:absolute;
 
   width:100px;
-  height:200%;
+  height:220%;
 
-  top:-50%;
-  left:-150px;
+  top:-60px;
+  left:-160px;
 
-  background:rgba(255,255,255,.6);
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.7),
+      transparent
+    );
 
   transform:rotate(20deg);
 
   transition:.7s;
+
 }
 
 .social:hover::after{
+
   left:120%;
+
 }
 
 .social:hover{
-  transform:translateY(-5px);
+
+  transform:
+    translateY(-6px)
+    scale(1.01);
 
   border-color:#00aaff;
 
   box-shadow:
-    0 18px 40px rgba(0,0,0,.2),
-    0 0 25px rgba(0,170,255,.3);
+
+    0 20px 40px rgba(0,0,0,.18),
+
+    0 0 30px rgba(0,170,255,.3);
+
 }
 
 .social:active{
-  transform:scale(.97);
+
+  transform:scale(.96);
+
 }
 
-/* ICON */
+/* =========================
+   SOCIAL ICON
+========================= */
 
 .icon{
-  width:50px;
-  height:50px;
 
-  border-radius:15px;
+  width:52px;
+  height:52px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  flex-shrink:0;
+  border-radius:16px;
 
   background:#111;
 
   color:#fff;
 
-  box-shadow:
-    0 5px 15px rgba(0,0,0,.2);
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  flex-shrink:0;
 
   position:relative;
   z-index:2;
+
+  box-shadow:
+
+    0 7px 18px rgba(0,0,0,.22),
+
+    0 0 15px rgba(0,170,255,.15);
+
+  transition:
+
+    transform .3s ease,
+
+    background .3s ease;
+
+}
+
+.social:hover .icon{
+
+  transform:
+    rotate(-5deg)
+    scale(1.08);
+
+  background:#007cff;
+
+  box-shadow:
+
+    0 0 22px rgba(0,124,255,.45);
+
 }
 
 .icon svg{
-  width:27px;
-  height:27px;
+
+  width:28px;
+  height:28px;
+
 }
 
-/* TEXT */
+/* =========================
+   SOCIAL TEXT
+========================= */
 
 .social-text{
-  text-align:left;
 
   margin-left:15px;
 
+  text-align:left;
+
   position:relative;
   z-index:2;
+
 }
 
 .social-title{
+
   font-size:16px;
 
   font-weight:900;
 
   letter-spacing:1px;
+
 }
 
 .social-sub{
-  margin-top:3px;
+
+  margin-top:4px;
 
   font-size:11px;
 
   color:#777;
+
 }
 
-/* ARROW */
+/* =========================
+   ARROW
+========================= */
 
 .arrow{
+
   margin-left:auto;
 
-  font-size:25px;
-
   color:#888;
+
+  font-size:26px;
 
   position:relative;
   z-index:2;
 
   transition:.3s;
+
 }
 
 .social:hover .arrow{
-  color:#00aaff;
-  transform:translateX(5px);
+
+  color:#007cff;
+
+  transform:
+    translateX(6px);
+
 }
 
-/* QUOTE */
+/* =========================
+   QUOTE
+========================= */
 
 .quote{
-  margin-top:28px;
 
-  padding:20px;
+  margin-top:30px;
 
-  border-radius:20px;
+  padding:22px 15px;
 
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.7),
-    rgba(190,235,255,.5)
-  );
+  border-radius:22px;
 
-  border:1px solid rgba(0,170,255,.2);
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.7),
+      rgba(190,235,255,.55)
+    );
+
+  border:
+
+    1px solid
+    rgba(0,170,255,.22);
+
+  box-shadow:
+
+    0 10px 25px rgba(0,0,0,.08);
+
 }
 
 .quote-main{
+
   font-size:18px;
-  font-weight:900;
+
+  font-weight:1000;
+
   letter-spacing:1px;
+
 }
 
 .quote-sub{
-  margin-top:7px;
 
-  font-size:11px;
+  margin-top:8px;
+
+  font-size:10px;
 
   color:#666;
 
-  letter-spacing:2px;
+  letter-spacing:3px;
+
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
+
   margin-top:30px;
 
   padding-top:20px;
 
-  border-top:1px solid rgba(0,0,0,.1);
-
-  font-size:10px;
+  border-top:
+    1px solid
+    rgba(0,0,0,.1);
 
   color:#777;
 
+  font-size:10px;
+
   letter-spacing:3px;
+
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:480px){
 
   .container{
-    padding-top:25px;
+
+    padding:
+      22px
+      14px
+      35px;
+
   }
 
   .card{
-    padding:28px 16px;
-    border-radius:26px;
+
+    padding:
+      30px
+      15px;
+
+    border-radius:27px;
+
+  }
+
+  .logo-text{
+
+    font-size:34px;
+
+    letter-spacing:4px;
+
   }
 
   .brand{
-    font-size:30px;
-    letter-spacing:5px;
+
+    font-size:16px;
+
   }
 
   .social{
-    min-height:74px;
+
+    min-height:76px;
+
   }
+
 }
+
 </style>
 
 </head>
+
 
 <body>
 
@@ -548,16 +762,19 @@ body::after{
 
 <div class="card">
 
-  <!-- LOGO -->
 
-  <div class="logo-wrap">
+  <!-- PACKCULT COVER -->
 
-    <div class="logo">
-      PC
+  <div class="logo-area">
+
+    <div class="logo-text">
+      PACK<span>CULT</span>
     </div>
 
   </div>
 
+
+  <!-- OFFICIAL -->
 
   <div class="tag">
     OFFICIAL
@@ -565,7 +782,7 @@ body::after{
 
 
   <div class="brand">
-    PACK CULT
+    STREETWEAR • LIFESTYLE
   </div>
 
 
@@ -589,10 +806,15 @@ body::after{
         viewBox="0 0 24 24"
         fill="currentColor"
       >
-        <path d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z"/>
+
+        <path
+          d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z"
+        />
+
       </svg>
 
     </div>
+
 
     <div class="social-text">
 
@@ -601,10 +823,11 @@ body::after{
       </div>
 
       <div class="social-sub">
-        Follow PACK CULT
+        Follow PACKCULT
       </div>
 
     </div>
+
 
     <div class="arrow">
       →
@@ -657,6 +880,7 @@ body::after{
 
     </div>
 
+
     <div class="social-text">
 
       <div class="social-title">
@@ -668,6 +892,7 @@ body::after{
       </div>
 
     </div>
+
 
     <div class="arrow">
       →
@@ -685,15 +910,18 @@ body::after{
     </div>
 
     <div class="quote-sub">
-      PACK CULT
+      PACKCULT
     </div>
 
   </div>
 
 
+  <!-- FOOTER -->
+
   <div class="footer">
-    PACK CULT © 2026
+    PACKCULT © 2026
   </div>
+
 
 </div>
 
