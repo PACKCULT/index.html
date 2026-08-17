@@ -1,931 +1,788 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PACKCULT SHOP</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyan: #00eaff;
+      --purple: #a855ff;
+      --pink: #ff36d1;
+      --green: #00ff9d;
+      --bg: #030308;
+      --text: #ffffff;
+      --muted: #9da3b5;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: "Prompt", sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(0, 234, 255, .16),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 25%,
+          rgba(168, 85, 255, .20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(255, 54, 209, .12),
+          transparent 30%
+        ),
+        var(--bg);
+    }
+
+    /* GRID BACKGROUND */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(0, 234, 255, .045) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(0, 234, 255, .045) 1px,
+          transparent 1px
+        );
+
+      background-size: 45px 45px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 90%
+        );
+
+      z-index: 0;
+    }
+
+    /* GLOW */
+
+    .glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow.one {
+      background: var(--cyan);
+      top: -150px;
+      left: -150px;
+    }
+
+    .glow.two {
+      background: var(--purple);
+      right: -150px;
+      top: 30%;
+    }
+
+    .glow.three {
+      background: var(--pink);
+      bottom: -200px;
+      left: 35%;
+    }
+
+    /* PARTICLES */
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+      animation: float linear infinite;
+    }
+
+    .particle:nth-child(1) {
+      left: 8%;
+      animation-duration: 7s;
+      animation-delay: -2s;
+    }
+
+    .particle:nth-child(2) {
+      left: 22%;
+      background: var(--purple);
+      box-shadow: 0 0 12px var(--purple);
+      animation-duration: 9s;
+      animation-delay: -5s;
+    }
+
+    .particle:nth-child(3) {
+      left: 39%;
+      animation-duration: 6s;
+      animation-delay: -1s;
+    }
+
+    .particle:nth-child(4) {
+      left: 55%;
+      background: var(--pink);
+      box-shadow: 0 0 12px var(--pink);
+      animation-duration: 8s;
+      animation-delay: -4s;
+    }
+
+    .particle:nth-child(5) {
+      left: 73%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+      animation-duration: 10s;
+      animation-delay: -7s;
+    }
+
+    .particle:nth-child(6) {
+      left: 91%;
+      animation-duration: 7s;
+      animation-delay: -3s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      85% {
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-20vh);
+        opacity: 0;
+      }
+    }
+
+    /* MAIN */
+
+    .container {
+      position: relative;
+      z-index: 2;
+
+      width: min(900px, 92%);
+      margin: auto;
+
+      padding: 35px 0 50px;
+    }
+
+    /* TOP STATUS */
+
+    .status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 25px;
+
+      color: #9cfaff;
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 15px var(--green);
+
+      animation: blink 1.2s infinite alternate;
+    }
+
+    @keyframes blink {
+      from {
+        opacity: .3;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      padding: 30px 10px 35px;
+    }
+
+    .badge {
+      display: inline-block;
+
+      padding: 8px 15px;
+
+      border: 1px solid rgba(0, 234, 255, .35);
+      border-radius: 999px;
 
-<title>PACKCULT</title>
+      background: rgba(0, 234, 255, .05);
+
+      color: #a5f8ff;
 
-<style>
+      font-size: 10px;
+      letter-spacing: 3px;
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+      box-shadow:
+        0 0 25px rgba(0, 234, 255, .08),
+        inset 0 0 15px rgba(0, 234, 255, .04);
+    }
 
-html{
-  scroll-behavior:smooth;
-}
+    .logo {
+      margin-top: 20px;
 
-body{
-  min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#111;
-  overflow-x:hidden;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 900;
+
+      font-size: clamp(40px, 10vw, 88px);
+      line-height: .95;
 
-  background:
-    radial-gradient(circle at 15% 10%, #ffffff 0%, transparent 28%),
-    radial-gradient(circle at 85% 15%, #bcecff 0%, transparent 30%),
-    linear-gradient(135deg,#f8f8f8,#d8d8d8,#ffffff);
-}
+      letter-spacing: 4px;
 
-/* =========================
-   MOVING BLUE LIGHT
-========================= */
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          var(--cyan),
+          var(--purple),
+          var(--pink),
+          #ffffff
+        );
 
-body::before{
-  content:"";
-  position:fixed;
+      background-size: 300%;
 
-  width:420px;
-  height:420px;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
 
-  top:-120px;
-  left:-160px;
+      animation: gradient 6s linear infinite;
 
-  border-radius:50%;
+      filter:
+        drop-shadow(0 0 15px rgba(0, 234, 255, .35));
+    }
 
-  background:rgba(0,174,255,.32);
+    @keyframes gradient {
+      to {
+        background-position: 300%;
+      }
+    }
 
-  filter:blur(90px);
+    .subtitle {
+      margin-top: 15px;
 
-  animation:
-    lightMove 9s ease-in-out infinite alternate;
+      color: var(--muted);
 
-  pointer-events:none;
-}
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
 
-body::after{
-  content:"";
-  position:fixed;
+    /* QUOTE */
 
-  width:330px;
-  height:330px;
+    .quote {
+      margin: 25px auto 0;
 
-  right:-150px;
-  bottom:-100px;
+      max-width: 650px;
 
-  border-radius:50%;
+      font-family: "Orbitron", sans-serif;
 
-  background:rgba(0,110,255,.25);
+      font-size: clamp(14px, 3vw, 21px);
 
-  filter:blur(80px);
+      line-height: 1.6;
 
-  animation:
-    lightMove2 8s ease-in-out infinite alternate;
+      color: #f5f7ff;
 
-  pointer-events:none;
-}
+      text-shadow:
+        0 0 20px rgba(0, 234, 255, .15);
+    }
 
-@keyframes lightMove{
+    .quote span {
+      color: var(--cyan);
 
-  0%{
-    transform:translate(0,0);
-  }
+      text-shadow:
+        0 0 15px rgba(0, 234, 255, .7);
+    }
 
-  100%{
-    transform:translate(620px,420px);
-  }
+    /* SOCIAL BUTTONS */
 
-}
+    .links {
+      display: grid;
+      gap: 16px;
 
-@keyframes lightMove2{
+      width: min(650px, 100%);
+      margin: auto;
+    }
 
-  0%{
-    transform:translate(0,0);
-  }
+    .social-card {
+      position: relative;
 
-  100%{
-    transform:translate(-300px,-250px);
-  }
+      display: flex;
+      align-items: center;
+      gap: 16px;
 
-}
+      padding: 18px 20px;
 
-/* =========================
-   CONTAINER
-========================= */
+      color: white;
+      text-decoration: none;
 
-.container{
-  width:100%;
-  max-width:500px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
 
-  margin:auto;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.08),
+          rgba(255,255,255,.025)
+        );
 
-  padding:35px 18px 45px;
+      backdrop-filter: blur(15px);
 
-  position:relative;
-  z-index:2;
-}
+      overflow: hidden;
 
-/* =========================
-   MAIN CARD
-========================= */
+      transition:
+        transform .3s ease,
+        border .3s ease,
+        box-shadow .3s ease;
+    }
 
-.card{
+    .social-card::before {
+      content: "";
 
-  padding:35px 20px;
+      position: absolute;
 
-  border-radius:32px;
+      width: 200%;
+      height: 2px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.78),
-      rgba(255,255,255,.48)
-    );
+      left: -200%;
+      top: 0;
 
-  border:1px solid rgba(255,255,255,.95);
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--cyan),
+          var(--purple),
+          transparent
+        );
 
-  backdrop-filter:blur(22px);
+      transition: left .5s ease;
+    }
 
-  box-shadow:
+    .social-card:hover::before {
+      left: 100%;
+    }
 
-    0 30px 80px rgba(0,0,0,.18),
+    .social-card:hover {
+      transform: translateY(-5px) scale(1.015);
 
-    0 0 50px rgba(0,170,255,.12);
+      border-color: rgba(0,234,255,.5);
 
-  animation:
-    cardIn 1s ease;
+      box-shadow:
+        0 0 30px rgba(0,234,255,.13),
+        inset 0 0 30px rgba(0,234,255,.035);
+    }
 
-}
+    .social-card.instagram:hover {
+      border-color: rgba(255,54,209,.5);
 
-@keyframes cardIn{
+      box-shadow:
+        0 0 30px rgba(255,54,209,.13);
+    }
 
-  from{
-    opacity:0;
-    transform:translateY(35px) scale(.97);
-  }
+    .icon {
+      position: relative;
 
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+      display: grid;
+      place-items: center;
 
-}
+      width: 52px;
+      height: 52px;
 
-/* =========================
-   PACKCULT LOGO
-========================= */
+      flex-shrink: 0;
 
-.logo-area{
+      border-radius: 16px;
 
-  position:relative;
+      font-family: Arial, sans-serif;
+      font-size: 25px;
+      font-weight: bold;
 
-  text-align:center;
+      color: var(--cyan);
 
-  margin:10px 0 32px;
+      background: rgba(0,234,255,.08);
 
-  overflow:hidden;
+      border: 1px solid rgba(0,234,255,.25);
 
-  padding:10px 0 20px;
+      box-shadow:
+        inset 0 0 20px rgba(0,234,255,.06),
+        0 0 20px rgba(0,234,255,.05);
+    }
 
-}
+    .instagram .icon {
+      color: #ff55d8;
 
-.logo-text{
+      background: rgba(255,54,209,.08);
 
-  position:relative;
+      border-color: rgba(255,54,209,.3);
 
-  display:inline-block;
+      box-shadow:
+        inset 0 0 20px rgba(255,54,209,.06),
+        0 0 20px rgba(255,54,209,.05);
+    }
 
-  font-size:45px;
+    .social-info {
+      flex: 1;
+    }
 
-  font-weight:1000;
+    .social-info strong {
+      display: block;
 
-  letter-spacing:6px;
+      font-family: "Orbitron", sans-serif;
 
-  line-height:1;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
 
-  color:#111;
+    .social-info small {
+      display: block;
 
-  text-transform:uppercase;
+      margin-top: 4px;
 
-  text-shadow:
+      color: #8d94a8;
 
-    0 2px 0 #fff,
+      font-size: 11px;
+    }
 
-    0 5px 15px rgba(0,0,0,.15);
+    .arrow {
+      color: var(--cyan);
 
-  animation:
-    logoAppear 1s ease;
+      font-size: 23px;
 
-}
+      transition: transform .3s ease;
+    }
 
-.logo-text span{
+    .social-card:hover .arrow {
+      transform: translate(4px,-4px);
+    }
 
-  color:#007cff;
+    /* TIKTOK */
 
-  text-shadow:
+    .coming-soon {
+      position: relative;
 
-    0 0 10px rgba(0,124,255,.35),
+      width: min(650px,100%);
 
-    0 0 25px rgba(0,170,255,.18);
+      margin: 45px auto 0;
 
-}
+      padding: 30px 20px;
 
-.logo-text::after{
+      text-align: center;
 
-  content:"";
+      overflow: hidden;
 
-  position:absolute;
+      border-radius: 24px;
 
-  left:-20px;
-  right:-20px;
+      border: 1px solid rgba(168,85,255,.35);
 
-  bottom:-12px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(168,85,255,.13),
+          rgba(0,234,255,.045)
+        );
 
-  height:3px;
+      box-shadow:
+        0 0 45px rgba(168,85,255,.08);
+    }
 
-  border-radius:20px;
+    .coming-soon::before {
+      content: "";
 
-  background:
+      position: absolute;
 
-    linear-gradient(
-      90deg,
-      transparent,
-      #00c8ff,
-      #006eff,
-      #00c8ff,
-      transparent
-    );
+      width: 180px;
+      height: 180px;
 
-  box-shadow:
+      right: -90px;
+      top: -100px;
 
-    0 0 12px #00aaff,
+      border-radius: 50%;
 
-    0 0 25px rgba(0,170,255,.5);
+      background: var(--purple);
 
-  animation:
-    blueLine 2.5s ease-in-out infinite;
+      filter: blur(70px);
 
-}
+      opacity: .2;
+    }
 
-@keyframes logoAppear{
+    .coming-soon h2 {
+      position: relative;
 
-  from{
-    opacity:0;
-    transform:scale(.75);
-    letter-spacing:15px;
-  }
+      font-family: "Orbitron", sans-serif;
 
-  to{
-    opacity:1;
-    transform:scale(1);
-    letter-spacing:6px;
-  }
+      font-size: 23px;
+      letter-spacing: 4px;
 
-}
+      text-shadow:
+        0 0 20px rgba(168,85,255,.5);
+    }
 
-@keyframes blueLine{
+    .coming-soon p {
+      position: relative;
 
-  0%,100%{
-    transform:scaleX(.65);
-    opacity:.5;
-  }
+      margin-top: 9px;
 
-  50%{
-    transform:scaleX(1);
-    opacity:1;
-  }
+      color: #aeb5c7;
 
-}
+      font-size: 13px;
+    }
 
-/* =========================
-   OFFICIAL TAG
-========================= */
+    .soon-badge {
+      display: inline-block;
 
-.tag{
+      margin-top: 15px;
 
-  display:inline-block;
+      padding: 7px 13px;
 
-  padding:7px 15px;
+      border-radius: 999px;
 
-  margin-bottom:13px;
+      border: 1px solid rgba(168,85,255,.45);
 
-  border-radius:50px;
+      color: #d7b8ff;
 
-  background:#111;
+      font-size: 9px;
+      letter-spacing: 3px;
 
-  color:#fff;
+      animation: soonGlow 2s infinite alternate;
+    }
 
-  font-size:9px;
+    @keyframes soonGlow {
+      from {
+        box-shadow: 0 0 5px rgba(168,85,255,.1);
+      }
 
-  font-weight:bold;
+      to {
+        box-shadow: 0 0 20px rgba(168,85,255,.35);
+      }
+    }
 
-  letter-spacing:3px;
+    /* FOOTER */
 
-  box-shadow:
+    footer {
+      margin-top: 35px;
 
-    0 0 15px rgba(0,170,255,.3);
+      text-align: center;
 
-  animation:
-    tagPulse 2.5s infinite;
+      color: #60677a;
 
-}
+      font-size: 9px;
 
-@keyframes tagPulse{
+      letter-spacing: 3px;
+    }
 
-  0%,100%{
-    box-shadow:
-      0 0 8px rgba(0,170,255,.15);
-  }
+    /* MOBILE */
 
-  50%{
-    box-shadow:
-      0 0 25px rgba(0,170,255,.45);
-  }
+    @media (max-width: 500px) {
 
-}
+      .container {
+        padding-top: 22px;
+      }
 
-/* =========================
-   BRAND TEXT
-========================= */
+      .hero {
+        padding-top: 25px;
+      }
 
-.brand{
+      .logo {
+        letter-spacing: 2px;
+      }
 
-  font-size:18px;
+      .social-card {
+        padding: 15px;
+      }
 
-  font-weight:900;
+      .icon {
+        width: 47px;
+        height: 47px;
+      }
 
-  letter-spacing:4px;
-
-  color:#333;
-
-}
-
-.tagline{
-
-  margin-top:8px;
-
-  margin-bottom:32px;
-
-  color:#777;
-
-  font-size:12px;
-
-  letter-spacing:3px;
-
-}
-
-/* =========================
-   SOCIAL BUTTON
-========================= */
-
-.social{
-
-  position:relative;
-
-  display:flex;
-
-  align-items:center;
-
-  width:100%;
-
-  min-height:82px;
-
-  margin:18px 0;
-
-  padding:12px 18px;
-
-  border-radius:22px;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.9),
-      rgba(245,245,245,.65)
-    );
-
-  border:2px solid rgba(0,160,255,.28);
-
-  color:#111;
-
-  text-decoration:none;
-
-  overflow:hidden;
-
-  box-shadow:
-
-    0 12px 30px rgba(0,0,0,.12),
-
-    0 0 20px rgba(0,170,255,.08);
-
-  transition:
-
-    transform .3s ease,
-
-    border-color .3s ease,
-
-    box-shadow .3s ease;
-
-}
-
-/* BLUE EDGE */
-
-.social::before{
-
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-
-  width:5px;
-  height:100%;
-
-  background:
-
-    linear-gradient(
-      #00c8ff,
-      #006eff
-    );
-
-  box-shadow:
-
-    0 0 18px #00aaff;
-
-}
-
-/* LIGHT SWEEP */
-
-.social::after{
-
-  content:"";
-
-  position:absolute;
-
-  width:100px;
-  height:220%;
-
-  top:-60px;
-  left:-160px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.7),
-      transparent
-    );
-
-  transform:rotate(20deg);
-
-  transition:.7s;
-
-}
-
-.social:hover::after{
-
-  left:120%;
-
-}
-
-.social:hover{
-
-  transform:
-    translateY(-6px)
-    scale(1.01);
-
-  border-color:#00aaff;
-
-  box-shadow:
-
-    0 20px 40px rgba(0,0,0,.18),
-
-    0 0 30px rgba(0,170,255,.3);
-
-}
-
-.social:active{
-
-  transform:scale(.96);
-
-}
-
-/* =========================
-   SOCIAL ICON
-========================= */
-
-.icon{
-
-  width:52px;
-  height:52px;
-
-  border-radius:16px;
-
-  background:#111;
-
-  color:#fff;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  flex-shrink:0;
-
-  position:relative;
-  z-index:2;
-
-  box-shadow:
-
-    0 7px 18px rgba(0,0,0,.22),
-
-    0 0 15px rgba(0,170,255,.15);
-
-  transition:
-
-    transform .3s ease,
-
-    background .3s ease;
-
-}
-
-.social:hover .icon{
-
-  transform:
-    rotate(-5deg)
-    scale(1.08);
-
-  background:#007cff;
-
-  box-shadow:
-
-    0 0 22px rgba(0,124,255,.45);
-
-}
-
-.icon svg{
-
-  width:28px;
-  height:28px;
-
-}
-
-/* =========================
-   SOCIAL TEXT
-========================= */
-
-.social-text{
-
-  margin-left:15px;
-
-  text-align:left;
-
-  position:relative;
-  z-index:2;
-
-}
-
-.social-title{
-
-  font-size:16px;
-
-  font-weight:900;
-
-  letter-spacing:1px;
-
-}
-
-.social-sub{
-
-  margin-top:4px;
-
-  font-size:11px;
-
-  color:#777;
-
-}
-
-/* =========================
-   ARROW
-========================= */
-
-.arrow{
-
-  margin-left:auto;
-
-  color:#888;
-
-  font-size:26px;
-
-  position:relative;
-  z-index:2;
-
-  transition:.3s;
-
-}
-
-.social:hover .arrow{
-
-  color:#007cff;
-
-  transform:
-    translateX(6px);
-
-}
-
-/* =========================
-   QUOTE
-========================= */
-
-.quote{
-
-  margin-top:30px;
-
-  padding:22px 15px;
-
-  border-radius:22px;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.7),
-      rgba(190,235,255,.55)
-    );
-
-  border:
-
-    1px solid
-    rgba(0,170,255,.22);
-
-  box-shadow:
-
-    0 10px 25px rgba(0,0,0,.08);
-
-}
-
-.quote-main{
-
-  font-size:18px;
-
-  font-weight:1000;
-
-  letter-spacing:1px;
-
-}
-
-.quote-sub{
-
-  margin-top:8px;
-
-  font-size:10px;
-
-  color:#666;
-
-  letter-spacing:3px;
-
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-
-  margin-top:30px;
-
-  padding-top:20px;
-
-  border-top:
-    1px solid
-    rgba(0,0,0,.1);
-
-  color:#777;
-
-  font-size:10px;
-
-  letter-spacing:3px;
-
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:480px){
-
-  .container{
-
-    padding:
-      22px
-      14px
-      35px;
-
-  }
-
-  .card{
-
-    padding:
-      30px
-      15px;
-
-    border-radius:27px;
-
-  }
-
-  .logo-text{
-
-    font-size:34px;
-
-    letter-spacing:4px;
-
-  }
-
-  .brand{
-
-    font-size:16px;
-
-  }
-
-  .social{
-
-    min-height:76px;
-
-  }
-
-}
-
-</style>
-
+      .subtitle {
+        font-size: 9px;
+        letter-spacing: 2px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-<div class="container">
+  <!-- LIGHT EFFECTS -->
 
-<div class="card">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+  <div class="glow three"></div>
 
+  <!-- FLOATING PARTICLES -->
 
-  <!-- PACKCULT COVER -->
+  <div class="particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
 
-  <div class="logo-area">
+  <main class="container">
 
-    <div class="logo-text">
-      PACK<span>CULT</span>
+    <!-- STATUS -->
+
+    <div class="status">
+      <span class="status-dot"></span>
+      PACKCULT ONLINE
     </div>
 
-  </div>
+    <!-- HERO -->
 
+    <section class="hero">
 
-  <!-- OFFICIAL -->
+      <div class="badge">
+        STREETWEAR • CULTURE • ATTITUDE
+      </div>
 
-  <div class="tag">
-    OFFICIAL
-  </div>
+      <h1 class="logo">
+        PACKCULT<br>
+        SHOP
+      </h1>
 
+      <p class="subtitle">
+        WEAR YOUR ATTITUDE. BUILD YOUR CULTURE.
+      </p>
 
-  <div class="brand">
-    STREETWEAR • LIFESTYLE
-  </div>
+      <!-- BRAND QUOTE -->
 
+      <p class="quote">
+        “<span>Wear what you believe.</span><br>
+        Make your own culture.”
+      </p>
 
-  <div class="tagline">
-    เท่ได้ • BE YOUR STYLE
-  </div>
+    </section>
 
+    <!-- SOCIAL LINKS -->
 
-  <!-- FACEBOOK -->
+    <section class="links">
 
-  <a
-    class="social"
-    href="https://www.facebook.com/share/1DVBxNLHAD/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-
-    <div class="icon">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
+      <a
+        class="social-card"
+        href="https://www.facebook.com/share/18ZmcmhnFq/"
+        target="_blank"
+        rel="noopener noreferrer"
       >
 
-        <path
-          d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z"
-        />
+        <div class="icon">
+          f
+        </div>
 
-      </svg>
+        <div class="social-info">
+          <strong>FACEBOOK</strong>
+          <small>ติดตาม PACKCULT SHOP</small>
+        </div>
 
-    </div>
+        <div class="arrow">
+          ↗
+        </div>
 
-
-    <div class="social-text">
-
-      <div class="social-title">
-        FACEBOOK
-      </div>
-
-      <div class="social-sub">
-        Follow PACKCULT
-      </div>
-
-    </div>
+      </a>
 
 
-    <div class="arrow">
-      →
-    </div>
-
-  </a>
-
-
-  <!-- INSTAGRAM -->
-
-  <a
-    class="social"
-    href="https://www.instagram.com/packcult.shop?igsh=ZDZybXI2cXV6ZGNs"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-
-    <div class="icon">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
+      <a
+        class="social-card instagram"
+        href="https://www.instagram.com/packcult.shop?igsh=ZDZybXI2cXV6ZGNs"
+        target="_blank"
+        rel="noopener noreferrer"
       >
 
-        <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="5"
-        />
+        <div class="icon">
+          ◎
+        </div>
 
-        <circle
-          cx="12"
-          cy="12"
-          r="4"
-        />
+        <div class="social-info">
+          <strong>INSTAGRAM</strong>
+          <small>@packcult.shop</small>
+        </div>
 
-        <circle
-          cx="17.5"
-          cy="6.5"
-          r="1"
-          fill="currentColor"
-          stroke="none"
-        />
+        <div class="arrow">
+          ↗
+        </div>
 
-      </svg>
+      </a>
 
-    </div>
+    </section>
 
 
-    <div class="social-text">
+    <!-- TIKTOK -->
 
-      <div class="social-title">
-        INSTAGRAM
-      </div>
+    <section class="coming-soon">
 
-      <div class="social-sub">
-        @packcult.shop
-      </div>
+      <h2>TIKTOK</h2>
 
-    </div>
+      <p>
+        เร็วๆ นี้ พร้อมคอนเทนต์อีกมากมาย
+      </p>
 
+      <span class="soon-badge">
+        COMING SOON
+      </span>
 
-    <div class="arrow">
-      →
-    </div>
-
-  </a>
+    </section>
 
 
-  <!-- QUOTE -->
+    <!-- FOOTER -->
 
-  <div class="quote">
+    <footer>
+      © 2026 PACKCULT SHOP • ALL RIGHTS RESERVED
+    </footer>
 
-    <div class="quote-main">
-      WEAR YOUR ATTITUDE.
-    </div>
-
-    <div class="quote-sub">
-      PACKCULT
-    </div>
-
-  </div>
-
-
-  <!-- FOOTER -->
-
-  <div class="footer">
-    PACKCULT © 2026
-  </div>
-
-
-</div>
-
-</div>
+  </main>
 
 </body>
 </html>
